@@ -63,8 +63,8 @@ def run_test(task_path, test, executable_path):
     output_path = os.path.join(task_path, 'tests', test + '.ans')
 
     if not os.path.exists(output_path):
-        puts(colored.yellow(f"""No matching output for test {input_path}. \
-        {output_path} doesn't exits. Skip it."""))
+        puts(colored.yellow(f"No matching output for test {input_path}. \
+        {output_path} doesn't exits. Skip it."))
         return
 
     with tempfile.TemporaryDirectory() as temp_dir:
