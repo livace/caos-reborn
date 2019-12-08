@@ -77,10 +77,17 @@ def run_test(task_path, test, executable_path):
                 else:
                     puts(colored.red(f"Test {test}: Failed!"))
                     find_diff(expected_lines, resulting_lines)
+                    saved_output_path = os.path.join(task_path, 'tests', test + '.res')
+                    os.rename(result_path, saved_output_path)
+                    puts(colored.red(f"Resulting output saved to '{saved_output_path}' file."))
                     exit(0)
 
 
 def find_diff(expected_lines, resulting_lines):
+    if (len(expected_lines) != len(resulting_lines)):
+        print("Expected and resulting files have different number of lines")
+        return
+
     count = 0
     for (line, (expected, resulting)) in enumerate(zip(expected_lines, resulting_lines)):
         if expected != resulting:
@@ -91,5 +98,3 @@ def find_diff(expected_lines, resulting_lines):
 
         if count == 10:
             break
-
-    puts(colored.red(f"Resulting output saved to the 'temp' file."))
