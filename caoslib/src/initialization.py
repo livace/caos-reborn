@@ -1,4 +1,4 @@
-from utils.constants import CONFIG_PATH, COOKIES_PATH, LINKS_PATH
+from utils.constants import FILES_PATH, CONFIG_PATH, COOKIES_PATH, LINKS_PATH
 
 import os
 import requests
@@ -9,8 +9,8 @@ from clint.textui import puts, colored, prompt
 
 
 def init():
-    if 'files' not in os.listdir(os.getcwd() + '/caoslib'):
-        os.mkdir(os.getcwd() + '/caoslib/files')
+    if not os.path.exists(FILES_PATH):
+        os.mkdir(FILES_PATH)
 
     open(CONFIG_PATH, 'a').close()
     open(COOKIES_PATH, 'a').close()
