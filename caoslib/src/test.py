@@ -4,6 +4,7 @@ from clint.textui import puts, colored, indent
 import os
 import tempfile
 
+
 def test(args):
     task_path = get_task(args)
     tests_path = os.path.join(task_path, 'tests')
@@ -41,11 +42,13 @@ def get_task_from_folder(folder):
         return None
     return os.path.join(CAOS_DIR, tokens[0], tokens[1])
 
+
 def get_task_from_args(args):
     grouped = args.grouped
     if '-c' not in grouped or '-t' not in grouped or len(grouped['-c']) == 0 or len(grouped['-t']) == 0:
         return None
     return os.path.join(CAOS_DIR, grouped['-c'][0], grouped['-t'][0])
+
 
 def get_task(args):
     task_path = get_task_from_args(args) or get_task_from_folder(os.getcwd())
@@ -54,12 +57,14 @@ def get_task(args):
         exit(0)
     return task_path
 
+
 def run_test(task_path, test, executable_path):
     input_path = os.path.join(task_path, 'tests', test + '.dat')
     output_path = os.path.join(task_path, 'tests', test + '.ans')
 
     if not os.path.exists(output_path):
-        puts(colored.yellow(f"No matching output for test {input_path}. {output_path} doesn't exits. Skip it."))
+        puts(colored.yellow(f"""No matching output for test {input_path}. \
+        {output_path} doesn't exits. Skip it."""))
         return
 
     with tempfile.TemporaryDirectory() as temp_dir:
